@@ -65,7 +65,7 @@ hr {
     margin-top: 0;
     font-weight: 300;
     font-family: Work Sans, sans-serif;
-    padding-top: 3rem;
+    padding: 3rem 0 1.5rem 0;
 }
 
 #icons {
@@ -115,13 +115,6 @@ hr {
     clear: both;
 }
 
-#external h1 {
-    margin: 2rem 0 4rem 0;
-    line-height: 3.5rem;
-    border-left: 0.8rem solid #333;
-    padding-left: 2rem;
-}
-
 #external h3{
     clear: both;
 }
@@ -159,6 +152,11 @@ hr {
 
 #post h1 {
     margin: 2rem 0 4rem 0;
+    line-height: 3.5rem;
+    border-left: 0.8rem solid #333;
+    padding-left: 2rem;
+}
+
 }
 
 #post ul {
