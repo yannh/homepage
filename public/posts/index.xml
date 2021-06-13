@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog posts on Yann Hamon</title>
+    <link>https://yann.mandragor.org/posts/</link>
+    <description>Recent content in Blog posts on Yann Hamon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yann.mandragor.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving the CDN post-purge thundering herd problem: The PurgeGroup pattern</title>
+      <link>https://yann.mandragor.org/posts/purge-group-pattern/</link>
+      <pubDate>Sat, 12 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yann.mandragor.org/posts/purge-group-pattern/</guid>
+      <description>Running a full purge of a CDN&amp;rsquo;s cache can be a risky endeavour. Since a CDN usually heavily caches requests, the origin only receives a fraction of all customers&#39; traffic.
+For a short amount of time following a purge operation, the CDN&amp;rsquo;s cache is empty and all incoming requests are forwarded to the origin. If the cache/hit ratio of the CDN is 98%, the number of requests hitting the origin immediately after the purge might be up to 50 times greater than usual.</description>
+    </item>
+    
+  </channel>
+</rss>

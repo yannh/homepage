@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Yann Hamon</title>
+    <link>https://yann.mandragor.org/tags/</link>
+    <description>Recent content in Tags on Yann Hamon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yann.mandragor.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CDN</title>
+      <link>https://yann.mandragor.org/tags/cdn/</link>
+      <pubDate>Sat, 12 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yann.mandragor.org/tags/cdn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fastly</title>
+      <link>https://yann.mandragor.org/tags/fastly/</link>
+      <pubDate>Sat, 12 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yann.mandragor.org/tags/fastly/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
