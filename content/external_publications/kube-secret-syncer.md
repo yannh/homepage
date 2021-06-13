@@ -1,6 +1,6 @@
 ---
 title: 'Open-sourcing kube-secret-syncer: A Kubernetes operator to sync secrets from AWS Secrets Manager'
-date: 2020-01-26T23:11:13Z
+date: 2020-10-20T00:00:00Z
 draft: false
 externalUrl: "https://www.contentful.com/blog/2020/10/20/open-source-kube-secret-syncer/"
 thumbnail: https://images.ctfassets.net/fo9twyrwpveg/10vrTi2mt6JcoHwEWIQmwY/f0b19f4addf7f28e7f36624767bb6107/BLOG_SecretSyncer.png?fm=webp&q=90&w=260

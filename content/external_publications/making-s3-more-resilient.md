@@ -1,8 +1,8 @@
 ---
 title: 'Making S3 more resilient using Lambda@Edge'
-date: 2020-01-26T23:11:13Z
+date: 2019-02-27T00:00:00Z
 draft: false
-externalUrl: "https://github.com/yannh/you-should-test-your-kubernetes-manifests/blob/main/cncf-berlin-meetup-20201218.pdf"
+externalUrl: "https://aws-de-marketing.s3-eu-central-1.amazonaws.com/Field%20Marketing/Summit-Berlin-2019/Presentations/AWS_Summit_Berlin_2019_Feb27_Making_S3_more_resilient_Using_Lambda%40Edge.pdf"
 thumbnail: make-s3-more-resilient.png
 ---
 

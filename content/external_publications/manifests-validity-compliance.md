@@ -1,6 +1,6 @@
 ---
 title: 'Ensuring Kubernetes manifests validity & compliance - a tooling overview'
-date: 2020-01-26T23:11:13
+date: 2020-12-18T00:00:00Z
 draft: false
 externalUrl: "https://github.com/yannh/you-should-test-your-kubernetes-manifests/blob/main/cncf-berlin-meetup-20201218.pdf"
 thumbnail: test-kubernetes-manifests.png
