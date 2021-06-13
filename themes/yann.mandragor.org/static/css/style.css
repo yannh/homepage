@@ -20,20 +20,14 @@ p {
 }
 
 #back { font-size: 1.5rem }
-
-#blog { font-size: 1.4rem; }
-#post h1 {
-    font-size: 2.5rem;
-    margin: 2rem 0 4rem 0;
-    line-height: 3.5rem;
-    border-left: 0.8rem solid #333;
-    padding-left: 2rem;
-}
+#blog { font-size: 1.4rem }
+#blog li { font-size: 1.4rem }
+#external h1 { font-size: 2.5rem }
+#contact h2 { font-size: 2.5rem }
 
 #post ul {
     margin: 1.5rem 0 1.5rem 5rem;
 }
-#contact h2 { font-size: 2.5rem }
 
 /* We default all margins/paddings to 0 */
 * { margin: 0; padding: 0 }
@@ -119,6 +113,13 @@ hr {
     display: block;
     margin-top: 0;
     clear: both;
+}
+
+#external h1 {
+    margin: 2rem 0 4rem 0;
+    line-height: 3.5rem;
+    border-left: 0.8rem solid #333;
+    padding-left: 2rem;
 }
 
 #external h3{
