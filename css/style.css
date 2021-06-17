@@ -5,7 +5,7 @@ a     { color: black }
 #blog .date { color: #777 }
 
 /* Font sizes */
-body { font-size: 2.2rem; line-height: 3rem; text-size-adjust: 100%; }
+body { font-size: 2.2rem; line-height: 3.1rem; text-size-adjust: 100%; }
 h1   { font-size: 5.5rem; line-height: 8rem; }
 .title h2   { font-size: 2.8rem }
 h2   { font-size: 3.3rem }
