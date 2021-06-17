@@ -5,7 +5,7 @@ a     { color: black }
 #blog .date { color: #777 }
 
 /* Font sizes */
-body { font-size: 2.2rem; line-height: 2.9rem; text-size-adjust: 100%; }
+body { font-size: 2.2rem; line-height: 3rem; text-size-adjust: 100%; }
 h1   { font-size: 5.5rem; line-height: 8rem; }
 .title h2   { font-size: 3rem }
 h2   { font-size: 3.3rem }
@@ -13,7 +13,7 @@ h3   { font-size: 2.5rem; line-height: 3rem }
 
 #back { font-size: 1.5rem }
 #external h3 { font-size: 2.5rem }
-#contact h2 { font-size: 2.5rem }
+#contact h2 { font-size: 3rem }
 #post h1   { font-size: 2rem }
 #post ul {
     margin: 1.5rem 0 1.5rem 5rem;
@@ -23,11 +23,11 @@ h3   { font-size: 2.5rem; line-height: 3rem }
 * { margin: 0; padding: 0 }
 a { text-decoration: none }
 
-
 h3{
     font-weight: 500;
-    margin: 0 0 1rem 0;
+    margin: 0 0 1.2rem 0;
 }
+
 p {
     font-weight: 400;
     margin-bottom: 16px;
@@ -186,9 +186,8 @@ hr {
 
     #back { font-size: 2.2rem }
     #external h3 { font-size: 2rem; line-height: 3rem }
-    #contact h2 { font-size: 3rem }
     #post h1   { font-size: 3rem }
-
+    #contact a  { font-size: 1.7rem }
 
     #title {
         float: right;
@@ -208,5 +207,4 @@ hr {
     #external a {
         padding: 1.5rem 3rem 0 3rem;
     }
-    #contact a  { font-size: 1.7rem }
 }
