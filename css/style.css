@@ -13,7 +13,7 @@ h3   { font-size: 2.5rem; font-weight: 500; }
 #back { font-size: 1.5rem }
 #external h1 { font-size: 2.5rem }
 #post h1   { font-size: 2rem }
-svg { width: 2rem; height: 2rem }
+svg { width: 1.6rem; height: 1.6rem }
 
 /* We default all margins/paddings to 0 */
 * { margin: 0; padding: 0 }
