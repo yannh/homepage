@@ -12,16 +12,13 @@ h2   { font-size: 3.3rem }
 h3   { font-size: 2.5rem; line-height: 3rem }
 
 #back { font-size: 1.5rem }
-#external h3 { font-size: 2.5rem }
-#contact h2 { font-size: 3rem }
 #post h1   { font-size: 2rem }
-#post ul {
-    margin: 1.5rem 0 1.5rem 5rem;
-}
 
 /* We default all margins/paddings to 0 */
 * { margin: 0; padding: 0 }
 a { text-decoration: none }
+
+
 
 svg { height: 1.8rem; width: 1.8rem }
 h3{
@@ -109,6 +106,10 @@ hr {
 }
 
 #blog .date { font-style: italic; padding-left: 2rem }
+
+#post ul {
+    margin: 1.5rem 0 1.5rem 5rem;
+}
 
 #external a {
     padding: 0.5rem 1.5rem 0 1.5rem;
