@@ -173,14 +173,14 @@ hr {
 }
 
 @media (min-width: 1024px) {
-    body { font-size: 1.2rem; line-height: 1.9rem;}
+    body { font-size: 1.3rem; line-height: 2.2rem;}
     #main-container {
         padding: 2rem 25% 0 25%;
     }
 
     h1   { font-size: 3.5rem; line-height: 4rem }
     h2   { font-size: 2rem; }
-    h3   { font-size: 1.7rem; line-height: 2rem; margin-bottom: 0.9rem; }
+    h3   { font-size: 1.7rem; line-height: 2.5rem; margin-bottom: 0.9rem; }
     #title {
         float: right;
         text-align: right;
