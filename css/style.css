@@ -5,24 +5,13 @@ a     { color: black }
 #blog .date { color: #777 }
 
 /* Font sizes */
-body { font-size: 2.2rem; line-height: 2.7rem; text-size-adjust: 100%; }
+body { font-size: 2.2rem; line-height: 2.9rem; text-size-adjust: 100%; }
 h1   { font-size: 5rem; line-height: 7rem; }
 h2   { font-size: 3rem }
-h3   {
-    font-size: 2.5rem;
-    font-weight: 500;
-    line-height: 3rem;
-    margin: 0 0 1rem 0;
-}
-p {
-    font-weight: 400;
-    margin-bottom: 16px;
-}
+h3   { font-size: 2.5rem; line-height: 3rem }
 
 #back { font-size: 1.5rem }
-#blog { font-size: 1.4rem }
-#blog li { font-size: 1.4rem }
-#external h1 { font-size: 2.5rem }
+#external h3 { font-size: 2.5rem }
 #contact h2 { font-size: 2.5rem }
 #post h1   { font-size: 2rem }
 #post ul {
@@ -32,6 +21,17 @@ p {
 /* We default all margins/paddings to 0 */
 * { margin: 0; padding: 0 }
 a { text-decoration: none }
+
+
+h3{
+    font-weight: 500;
+    margin: 0 0 1rem 0;
+}
+p {
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
 
 #main-container {
     padding: 3em 2% 0 2%;
@@ -173,7 +173,7 @@ hr {
 }
 
 @media (min-width: 1024px) {
-    body { font-size: 1.2rem; line-height: 1.9rem;}
+    body { font-size: 1.4rem; line-height: 2.2rem;}
     #main-container {
         padding: 2rem 25% 0 25%;
     }
@@ -181,6 +181,13 @@ hr {
     h1   { font-size: 3.5rem; line-height: 4rem }
     h2   { font-size: 2rem; }
     h3   { font-size: 1.7rem; line-height: 2rem; margin-bottom: 0.9rem; }
+
+    #back { font-size: 2.2rem }
+    #external h3 { font-size: 2.2rem; line-height: 3.2rem }
+    #contact h2 { font-size: 3rem }
+    #post h1   { font-size: 3rem }
+
+
     #title {
         float: right;
         text-align: right;
