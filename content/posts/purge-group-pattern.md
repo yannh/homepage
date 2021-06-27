@@ -52,13 +52,6 @@ for PURGE_GROUP in `seq 0 99`; do
 done
 {{< /prism >}}
 
- * Purge Cache-Tag Purgegroup0
- * Wait 10 seconds
- * Purge Cache-Tag Purgegroup1
- * Wait 10 seconds
- * Purge Cache-Tag Purgegroup2
- * ...
-
 The number of PurgeGroups, as well as the time to wait between each purge operation, will
 depend on how fast the purge needs to happen, and on how many requests the origin is able
 to receive.
