@@ -9,8 +9,8 @@ requires: ["fiddle", "prism"]
 Purging a Content Delivery Network (CDN) cache can be a risky endeavour. Since a CDN usually
 heavily caches requests, the origin only receives a fraction of all customers' traffic.
 
-For a short amount of time following a purge operation, the CDN cache is empty the CDN
-will send all incoming requests to the origin. If the cache hit ratio is around 98%,
+For a short amount of time following a purge operation, the CDN cache is empty and all
+incoming requests are sent to the origin. If the cache hit ratio is usually around 98%,
 the number of requests hitting the origin immediately after the
 purge might be up to **50 times greater** than usual. This is an example of the
 [thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem).
