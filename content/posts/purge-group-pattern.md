@@ -57,6 +57,7 @@ FASTLY_TOKEN=secrettoken
 SERVICE_ID=123456
 for PURGE_GROUP in `seq 0 99`; do
   curl -X POST -H "Fastly-Key:${FASTLY_TOKEN}" https://api.fastly.com/service/${SERVICE_ID}/purge/PurgeGroup${PURGE_GROUP}
+  sleep 5
 done
 {{< /prism >}}
 
