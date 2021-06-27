@@ -3,6 +3,7 @@ title: "Solving the CDN post-purge thundering herd problem: The PurgeGroup patte
 date: 2021-06-12T00:00:00Z
 draft: false
 tags: ["Fastly", "CDN"]
+requires: ["fiddle", "prism"]
 ---
 
 Running a full purge of a CDN's cache can be a risky endeavour. Since a CDN usually
@@ -34,42 +35,23 @@ between PurgeGroup0 and PurgeGroup99, we can divide the cache in similarly-sized
 buckets - each containing around 1% of requests.  Purging one of these PurgeGroups
 will therefore purge about 1% of the cache.
 
-For example with Fastly:
+Adding such a cache-tag can be done either at the origin, or directly in the CDN, depending
+on the provider: the following example with Fastly adds a random PurgeGroup surrogate-key to each request:
 
 {{< rawhtml >}}
-<script type="application/json+fiddle">
-{
-  "type": "vcl",
-  "title": "PurgeGroup pattern",
-  "origins": [
-    "https://httpbin.org"
-  ],
-  "src": {
-    "fetch": "# Add a random \"PurgeGroup\" (PurgeGroup0 to PurgeGroup99)\n# Enables purging of CDN cache gradually\nif (beresp.http.Surrogate-Key && !std.strstr(beresp.http.Surrogate-Key, \"PurgeGroup\")) {\n  set beresp.http.Surrogate-Key = beresp.http.Surrogate-Key \" PurgeGroup\" randomint(0, 99);\n} else if (!beresp.http.Surrogate-Key) {\n  set beresp.http.Surrogate-Key = \"PurgeGroup\" randomint(0, 99);\n}"
-  },
-  "schema": null,
-  "data": null,
-  "requests": [
-    {
-      "enableCluster": true,
-      "enableShield": false,
-      "enableWAF": false,
-      "method": "GET",
-      "path": "/status/200",
-      "followRedirects": false,
-      "tests": ""
-    }
-  ]
-}
-</script>
+<p><a href='https://fiddle.fastlydemo.net/fiddle/d4b88fa4/embedded'>Go look at this fiddle</a></p>
 {{< /rawhtml >}}
 
-
-Adding such a cache-tag can be done either at the origin, or directly in the CDN, depending
-on the provider: the following (example with Fastly)[https://fiddle.fastlydemo.net/fiddle/96a1f42e]
-adds a random PurgeGroup surrogate-key to each request.
-
 The cache can then be purged gradually:
+
+{{< prism >}}#!/bin/bash
+FASTLY_TOKEN=secrettoken
+SERVICE_ID=123456
+for PURGE_GROUP in `seq 0 99`; do
+  curl -X POST -H "Fastly-Key:${FASTLY_TOKEN}" https://api.fastly.com/service/${SERVICE_ID}/purge/product/${PURGE_GROUP}
+done
+{{< /prism >}}
+
  * Purge Cache-Tag Purgegroup0
  * Wait 10 seconds
  * Purge Cache-Tag Purgegroup1

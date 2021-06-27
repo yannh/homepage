@@ -7,7 +7,7 @@
             {{- block "main" . }}{{- end }}
             {{- partial "footer.html" . -}}
         </div>
-
-        <script defer src="https://fiddle.fastlydemo.net/embed.js"></script>
+        {{ if in .Params.requires "fiddle" }}<script defer src="https://fiddle.fastlydemo.net/embed.js"></script>{{ end }}
+        {{- if in .Params.requires "prism" }}<script defer src="/js/prism.js"></script>{{ end -}}
     </body>
 </html>

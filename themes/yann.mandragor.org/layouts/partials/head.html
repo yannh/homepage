@@ -1,8 +1,9 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    {{ $title := print .Site.Title " | " .Title }}
-    {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
+    {{ if .IsHome }}<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>{{ end -}}
+    {{- $title := print .Site.Title " | " .Title -}}
+    {{- if .IsHome }}{{ $title = .Site.Title }}{{ end -}}
+    {{- if in .Params.requires "prism" }}<link rel="stylesheet" type="text/css" href="/css/prism.css">{{ end -}}
     <title>{{ $title }}</title>
 </head>
