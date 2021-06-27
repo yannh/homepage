@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset=utf-8><link rel=stylesheet type=text/css href=/css/style.css><link rel=stylesheet type=text/css href=/css/prism.css><title>Yann Hamon | Solving the CDN post-purge thundering herd problem: The PurgeGroup pattern</title></head><body><div id=main-container><div id=post><a href=/ id=back>← Back</a><h1>Solving the CDN post-purge thundering herd problem: The PurgeGroup pattern<div class=date>June 12, 2021</div></h1><p>Purging a Content Delivery Network (CDN) cache can be a risky endeavour. Since a CDN usually
-heavily caches requests, the origin only receives a fraction of all customers' traffic.</p><p>For a short amount of time following a purge operation, the CDN cache is empty the CDN
-will send all incoming requests to the origin. If the cache hit ratio is around 98%,
+heavily caches requests, the origin only receives a fraction of all customers' traffic.</p><p>For a short amount of time following a purge operation, the CDN cache is empty and all
+incoming requests are sent to the origin. If the cache hit ratio is usually around 98%,
 the number of requests hitting the origin immediately after the
 purge might be up to <strong>50 times greater</strong> than usual. This is an example of the
 <a href=https://en.wikipedia.org/wiki/Thundering_herd_problem>thundering herd problem</a>.</p><hr><p>When the origin is not preemptively over-provisioned to deal with such sudden increases in load,
