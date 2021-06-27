@@ -18,7 +18,7 @@ on the provider: the following example with Fastly adds a random PurgeGroup surr
 FASTLY_TOKEN=secrettoken
 SERVICE_ID=123456
 for PURGE_GROUP in `seq 0 99`; do
-  curl -X POST -H "Fastly-Key:${FASTLY_TOKEN}" https://api.fastly.com/service/${SERVICE_ID}/purge/product/${PURGE_GROUP}
+  curl -X POST -H "Fastly-Key:${FASTLY_TOKEN}" https://api.fastly.com/service/${SERVICE_ID}/purge/PurgeGroup${PURGE_GROUP}
 done
 </code></pre><p>The number of PurgeGroups, as well as the time to wait between each purge operation, will
 depend on how fast the purge needs to happen, and on how many requests the origin is able
