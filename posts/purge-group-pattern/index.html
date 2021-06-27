@@ -1,20 +1,18 @@
-<!doctype html><html><head><meta charset=utf-8><link rel=stylesheet type=text/css href=/css/style.css><link rel=stylesheet type=text/css href=/css/prism.css><title>Yann Hamon | Solving the CDN post-purge thundering herd problem: The PurgeGroup pattern</title></head><body><div id=main-container><div id=post><a href=/ id=back>← Back</a><h1>Solving the CDN post-purge thundering herd problem: The PurgeGroup pattern</h1><p>Running a full purge of a CDN&rsquo;s cache can be a risky endeavour. Since a CDN usually
-heavily caches requests, the origin only receives a fraction of all customers' traffic.</p><p>For a short amount of time following a purge operation, the CDN&rsquo;s cache is empty and all
-incoming requests are forwarded to the origin. If the cache/hit
-ratio of the CDN is 98%, the number of requests hitting the origin immediately after the
-purge might be up to 50 times greater than usual. This is a problem known as
-<a href=https://en.wikipedia.org/wiki/Thundering_herd_problem>thundering herd</a>.
-As the cache is being repopulated, the cache/hit ratio will gradually increase and the number
-of requests hitting the origin will slowly go back to normal.</p><p>Often, the origin is not sized to deal with such sudden increase in load. Therefore,
-fully purging the cache is prohibitively expensive, and a tool of last resort.</p><p>A solution to solve this problem would be to purge the cache gradually over time, rather than
-in one fast operation. Unfortunately, no CDN vendor provides this as a feature.</p><p><em>Enter Surrogate-Keys / Cache-Tags.</em></p><p>Most CDN providers allow you to purge a cache by <em>Key</em>: <a href=https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys>Fastly</a>,
-<a href=https://developer.akamai.com/blog/2019/03/28/technical-deep-dive-purging-cache-tag>Akamai</a>,
-<a href=https://support.cloudflare.com/hc/en-us/articles/200169246-Purging-cached-resources-from-Cloudflare#h_6d756ac9-c476-45e8-a5d4-e2a6e45d9dc7>Cloudflare</a>,
-and many more support this.</p><p>By assigning a random &ldquo;PurgeGroupID&rdquo; cache-tag to all requests, for example
+<!doctype html><html><head><meta charset=utf-8><link rel=stylesheet type=text/css href=/css/style.css><link rel=stylesheet type=text/css href=/css/prism.css><title>Yann Hamon | Solving the CDN post-purge thundering herd problem: The PurgeGroup pattern</title></head><body><div id=main-container><div id=post><a href=/ id=back>← Back</a><h1>Solving the CDN post-purge thundering herd problem: The PurgeGroup pattern<div class=date>June 12, 2021</div></h1><p>Purging a Content Delivery Network (CDN) cache can be a risky endeavour. Since a CDN usually
+heavily caches requests, the origin only receives a fraction of all customers' traffic.</p><p>For a short amount of time following a purge operation, the CDN cache is empty the CDN
+will send all incoming requests to the origin. If the cache hit ratio is around 98%,
+the number of requests hitting the origin immediately after the
+purge might be up to <strong>50 times greater</strong> than usual. This is an example of the
+<a href=https://en.wikipedia.org/wiki/Thundering_herd_problem>thundering herd problem</a>.</p><hr><p>When the origin is not preemptively over-provisioned to deal with such sudden increases in load,
+fully purging the cache leads to an overload of the origin service, ultimately leading to request errors.
+Only as the cache is being repopulated will the number of requests sent to the origin go down,
+and the origin service recover.</p><p>Therefore, fully purging a CDN cache is often a tool of last resort.</p><p>A solution to this problem would be to purge the cache gradually over time, rather than
+in one fast operation. Unfortunately, no CDN vendor provides this as a feature, to my knowledge.</p><p><strong>Enter Surrogate-Keys / Cache-Tags.</strong></p><p>Many CDN providers allow you to purge a cache by <em>Key</em>, referred to as &ldquo;Cache Tag&rdquo;, &ldquo;Content Tag&rdquo; or &ldquo;Surrogate Key&rdquo;:</p><ul><li><a href=https://docs.fastly.com/en/guides/getting-started-with-surrogate-keys>Fastly</a></li><li><a href=https://developer.akamai.com/blog/2019/03/28/technical-deep-dive-purging-cache-tag>Akamai</a></li><li><a href=https://support.cloudflare.com/hc/en-us/articles/200169246-Purging-cached-resources-from-Cloudflare#h_6d756ac9-c476-45e8-a5d4-e2a6e45d9dc7>Cloudflare</a></li><li><a href=https://docs.imperva.com/bundle/cloud-application-security/page/settings/caching-settings.htm#Purgethecache>Imperva</a></li><li><a href=https://www.limelight.com/resources/data-sheet/smartpurge/>Limelight</a></li><li>and maybe more?</li></ul><p>By assigning a random &ldquo;PurgeGroupID&rdquo; cache-tag to all requests, for example
 between PurgeGroup0 and PurgeGroup99, we can divide the cache in similarly-sized
 buckets - each containing around 1% of requests. Purging one of these PurgeGroups
 will therefore purge about 1% of the cache.</p><p>Adding such a cache-tag can be done either at the origin, or directly in the CDN, depending
-on the provider: the following example with Fastly adds a random PurgeGroup surrogate-key to each request:</p><p><a href=https://fiddle.fastlydemo.net/fiddle/d4b88fa4/embedded>Go look at this fiddle</a></p><p>The cache can then be purged gradually:</p><pre><code class=language-bash>#!/bin/bash
+on the provider. The following example with Fastly adds a random PurgeGroup surrogate-key to each request
+response:</p><p><a href=https://fiddle.fastlydemo.net/fiddle/d4b88fa4/embedded>Go look at this fiddle</a></p><p>The cache can then be purged gradually:</p><pre><code class=language-bash>#!/bin/bash
 FASTLY_TOKEN=secrettoken
 SERVICE_ID=123456
 for PURGE_GROUP in `seq 0 99`; do
@@ -23,4 +21,4 @@ done
 </code></pre><p>The number of PurgeGroups, as well as the time to wait between each purge operation, will
 depend on how fast the purge needs to happen, and on how many requests the origin is able
 to receive.</p><p>I refer to this method as the &ldquo;PurgeGroup pattern&rdquo;. It is pretty simple, and should work
-with most major CDN providers.</p></div></div><script defer src=https://fiddle.fastlydemo.net/embed.js></script><script defer src=/js/prism.js></script></body></html>
+with all CDN providers that support cache tags.</p></div></div><script defer src=https://fiddle.fastlydemo.net/embed.js></script><script defer src=/js/prism.js></script></body></html>
