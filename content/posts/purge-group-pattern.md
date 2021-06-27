@@ -48,7 +48,7 @@ The cache can then be purged gradually:
 FASTLY_TOKEN=secrettoken
 SERVICE_ID=123456
 for PURGE_GROUP in `seq 0 99`; do
-  curl -X POST -H "Fastly-Key:${FASTLY_TOKEN}" https://api.fastly.com/service/${SERVICE_ID}/purge/product/${PURGE_GROUP}
+  curl -X POST -H "Fastly-Key:${FASTLY_TOKEN}" https://api.fastly.com/service/${SERVICE_ID}/purge/PurgeGroup${PURGE_GROUP}
 done
 {{< /prism >}}
 
