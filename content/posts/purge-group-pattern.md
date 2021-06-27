@@ -34,6 +34,37 @@ between PurgeGroup0 and PurgeGroup99, we can divide the cache in similarly-sized
 buckets - each containing around 1% of requests.  Purging one of these PurgeGroups
 will therefore purge about 1% of the cache.
 
+For example with Fastly:
+
+{{< rawhtml >}}
+<script type="application/json+fiddle">
+{
+  "type": "vcl",
+  "title": "PurgeGroup pattern",
+  "origins": [
+    "https://httpbin.org"
+  ],
+  "src": {
+    "fetch": "# Add a random \"PurgeGroup\" (PurgeGroup0 to PurgeGroup99)\n# Enables purging of CDN cache gradually\nif (beresp.http.Surrogate-Key && !std.strstr(beresp.http.Surrogate-Key, \"PurgeGroup\")) {\n  set beresp.http.Surrogate-Key = beresp.http.Surrogate-Key \" PurgeGroup\" randomint(0, 99);\n} else if (!beresp.http.Surrogate-Key) {\n  set beresp.http.Surrogate-Key = \"PurgeGroup\" randomint(0, 99);\n}"
+  },
+  "schema": null,
+  "data": null,
+  "requests": [
+    {
+      "enableCluster": true,
+      "enableShield": false,
+      "enableWAF": false,
+      "method": "GET",
+      "path": "/status/200",
+      "followRedirects": false,
+      "tests": ""
+    }
+  ]
+}
+</script>
+{{< /rawhtml >}}
+
+
 Adding such a cache-tag can be done either at the origin, or directly in the CDN, depending
 on the provider: the following (example with Fastly)[https://fiddle.fastlydemo.net/fiddle/96a1f42e]
 adds a random PurgeGroup surrogate-key to each request.
@@ -52,3 +83,4 @@ to receive.
 
 I refer to this method as the "PurgeGroup pattern". It is pretty simple, and should work
 with most major CDN providers.
+
