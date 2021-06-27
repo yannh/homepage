@@ -12,13 +12,15 @@ h3   { font-size: 2.5rem; line-height: 3.8rem; font-weight: 500 }
 
 #back { font-size: 1.5rem }
 #external h1 { font-size: 2.5rem }
-#post h1   { font-size: 2rem }
+#post h1   { font-size: 3rem; line-height: 4.2rem; font-weight: 400 }
+#post .date { font-size: 2.3rem }
 svg { width: 1.6rem; height: 1.6rem }
-#post .date { font-size: 1.4rem; margin-top: -0.6rem }
 
 /* We default all margins/paddings to 0 */
 * { margin: 0; padding: 0 }
-a { text-decoration: none }
+a { text-decoration: underline }
+a:hover { text-decoration: none }
+#main-container a { text-decoration: none }
 p {
     font-weight: 400;
     margin-bottom: 16px;
@@ -26,6 +28,9 @@ p {
 h3   {
     font-weight: 500;
     margin: 0 0 1.2rem 0;
+}
+pre {
+    margin: 1rem 0 1rem 0
 }
 
 #main-container {
@@ -147,8 +152,7 @@ hr {
 
 #post h1 {
     margin: 2rem 0 4rem 0;
-    line-height: 3rem;
-    border-left: 0.8rem solid #333;
+    border-left: 0.5rem solid #333;
     padding-left: 2rem;
 }
 
