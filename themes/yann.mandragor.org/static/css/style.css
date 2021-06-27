@@ -2,10 +2,10 @@
 /* Colors */
 body  { background-color: white; color: black }
 a     { color: black }
-#blog .date { color: #777 }
+.date { color: #777 }
 
 /* Font sizes */
-body { font-size: 2.2rem; line-height: 3rem; text-size-adjust: 100% }
+body { font-size: 2.2rem; line-height: 3.3rem; text-size-adjust: 100% }
 h1   { font-size: 5rem; line-height: 7rem }
 h2   { font-size: 3rem; line-height: 4.5rem }
 h3   { font-size: 2.5rem; line-height: 3.8rem; font-weight: 500 }
@@ -14,6 +14,7 @@ h3   { font-size: 2.5rem; line-height: 3.8rem; font-weight: 500 }
 #external h1 { font-size: 2.5rem }
 #post h1   { font-size: 2rem }
 svg { width: 1.6rem; height: 1.6rem }
+#post .date { font-size: 1.4rem; margin-top: -0.6rem }
 
 /* We default all margins/paddings to 0 */
 * { margin: 0; padding: 0 }
