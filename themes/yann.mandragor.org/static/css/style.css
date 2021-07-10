@@ -6,13 +6,13 @@ a     { color: black }
 .date, #external h4 { color: #777 }
 
 /* Font sizes */
-body { font-size: 2.2rem; line-height: 3.3rem; text-size-adjust: 100% }
+body { font-size: 2.3rem; line-height: 3.4rem; text-size-adjust: 100% }
 h1   { font-size: 2.5rem; line-height: 3.5rem; font-weight: 400 }
 h2   { font-size: 3rem; line-height: 4.5rem }
 h3   { font-size: 2.5rem; line-height: 3.8rem; font-weight: 500 }
 
-#title h1 { font-size: 5rem; line-height: 6rem; font-weight: 500; }
-#title h2 { font-size: 1.9rem; line-height: 2.7rem; font-weight: 300; }
+#title h1 { font-size: 6.2rem; line-height: 8.3rem; font-weight: 500; }
+#title h2 { font-size: 2.4rem; line-height: 2.7rem; font-weight: 300; }
 
 #back { font-size: 1.8rem }
 #external h1 { font-size: 2.5rem }
@@ -121,7 +121,7 @@ hr {
 #external h4 {
     font-style: italic;
     font-weight: 500;
-    margin: 0;
+    margin-bottom: 1rem;
     padding: 0
 }
 
@@ -190,6 +190,8 @@ hr {
     h3, #contact a   { font-size: 1.7rem; line-height: 2.5rem; margin-bottom: 0.9rem; }
     #post .date, #back  { font-size: 1.5rem }
     #contact h2  { font-size: 3rem }
+    #title h1 { font-size: 5rem; line-height: 6rem; font-weight: 500; }
+    #title h2 { font-size: 1.9rem; line-height: 2.7rem; font-weight: 300; }
 
     #main-container {
         padding: 2rem 25% 0 25%;
