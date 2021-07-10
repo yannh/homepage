@@ -95,9 +95,9 @@
         <h3>{{ .Params.title }}</h3>
         <h4>{{.Date.Format "January 2, 2006"}} - {{ .Params.location }}</h4>
         {{ if not (hasPrefix .Params.thumbnail "http" )}}
-          <img src="assets/{{ .Params.thumbnail }}" alt="{{ .Params.title | humanize | title }}" width="260px" />
+          <img src="assets/{{ .Params.thumbnail }}" alt="{{ .Params.title | humanize | title }}" />
         {{ else }}
-          <img src="{{ .Params.thumbnail }}" alt="{{ .Params.title | humanize | title }}" width="260px" />
+          <img src="{{ .Params.thumbnail }}" alt="{{ .Params.title | humanize | title }}" />
         {{ end }}
         {{ .Content }}
         <br>
