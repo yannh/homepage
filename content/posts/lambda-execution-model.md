@@ -1,7 +1,7 @@
 ---
 title: "The execution model of AWS Lambda@edge with Cloudfront's two- and three-tiered architecture"
 date: 2021-07-02T00:00:00Z
-draft: true
+draft: false
 tags: ["Cloudfront", "Lambda@edge"]
 ---
 
