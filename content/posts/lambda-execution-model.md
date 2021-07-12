@@ -13,13 +13,13 @@ customers to run code directly in Cloudfront's Point-Of-Presences (POPs), AWS wa
 use-cases, from simple header manipulation, to custom authentication workflows. 
 
 Lambda@Edge relies on a [simple execution model](https://docs.aws.amazon.com/lambda/latest/dg/lambda-edge.html) that
-defines four different places to manipulate CloudFront requests or response objects:
+defines four different places to manipulate CloudFront request or response objects:
 
 ![Lambda@Edge execution model](/assets/lambda-edge-simple.png)
 
-The four different lambdas are:
+The four different lambda types are:
 
-| Name            | Location     | Executes         | Manipulates |
+| Lambda type     | Location     | Executes         | Manipulates |
 | --------------- | ------------ | ---------------- | ------------|
 | viewer-request  | Before cache | Every request    | Request     |
 | origin-request  | After cache  | On cache misses  | Request     |
@@ -27,7 +27,7 @@ The four different lambdas are:
 | viewer-response | Before cache | Every request    | Response    |
 
 A few immediate observations:
- * Origin-requests and origin-response lambdas are not run on cache hits, and therefore do not impact the performance
+ * Origin-request and origin-response lambdas are not run on cache hits, and therefore do not impact the performance
  of cache-hits.
  * Viewer-request and viewer-response lambdas are run on every request. This can get quite expensive on Cloudfront
  distribution with significant traffic.
@@ -35,7 +35,7 @@ A few immediate observations:
 ### A two-tiered caching architecture
 
 This execution model assumes a single Cloudfront cache between the end-user and the origin. According to this model,
-if the POP (edge cache) hit by the end-user is Marseille, France (MRS50), all four lambdas would be run at there,
+if the POP (edge cache) hit by the end-user is Marseille, France (MRS50), all four lambdas would be run there,
 and that POP would send all cache misses to the origin.
 
 In reality however, Cloudfront does not forward cache misses from the edge cache to the origin, but will send the
@@ -49,7 +49,7 @@ This is how this two-tier caching system would work without lambdas:
 ![Cloudfront 2-tier architecture](/assets/lambda-edge-2-tier-no-lambda.png)
 
 So, where are lambdas executed, after all? **Lambdas@Edge are always executed in the regional edge cache**. Edge
-caches can not run lambdas@edge - except [Cloudfront functions](https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/)
+caches can not run lambdas@edge functions - only [Cloudfront functions](https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/)
 which we will discuss later.
 
 This gives us the following:
