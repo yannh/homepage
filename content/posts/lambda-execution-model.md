@@ -78,7 +78,7 @@ Of course this complicates the Lambda execution model.
 
 Indeed, origin-requests need to run *after the cache*. Adding an origin shield to your Cloudfront distribution
 changes where your origin-* lambda are executed: they will now be run at the origin-shield instead of the
-regional cache. Depending on your use-case, this might be appropriate - but it is important to node that 
+regional cache. Depending on your use-case, this might be appropriate - but it is important to note that
 origin-requests are now executed close to the origin, and potentially quite far from the user and the edge.
 
 ### Cloudfront functions
