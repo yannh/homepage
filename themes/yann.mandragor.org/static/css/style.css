@@ -152,6 +152,11 @@ hr {
     font-weight: 400;
 }
 
+
+#post {
+    padding: 0 0 5rem 0;
+}
+
 #post #back {
     font-family: Work Sans, sans-serif;
     font-weight: 400;
@@ -183,6 +188,19 @@ hr {
     margin: 0;
     padding: 0.3rem 0.5rem;
     border: 1px solid black;
+}
+
+#post #prev {
+    margin: 2rem 0 2rem 0;
+    float: left;
+    max-width: 50%;
+    max-width: 40%;
+}
+
+#post #next {
+    margin: 2rem 0 2rem 0;
+    float: right;
+    max-width: 40%;
 }
 
 #contact a {
