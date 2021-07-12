@@ -167,6 +167,24 @@ hr {
     margin: 1.5rem 0 1.5rem 5rem;
 }
 
+#post img {
+    margin: 2rem auto;
+    display: block;
+    max-width: 100%;
+}
+
+#post table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 1rem auto;
+}
+
+#post table th, #post table td, #post table tr {
+    margin: 0;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid black;
+}
+
 #contact a {
     display: block;
     margin-top: 1.5em;
