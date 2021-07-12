@@ -6,14 +6,14 @@ tags: ["Cloudfront", "Lambda@edge"]
 ---
 
 The [introduction of Lambda@Edge](https://aws.amazon.com/about-aws/whats-new/2016/12/introducing-lambda-at-edge-in-preview-run-lambda-function-at-aws-edge-locations-closest-to-your-users/)
-in 2016/2017 was probably one of the most significant updates to AWS Cloudfront in the last decade. By enabling
+in 2016/2017 was probably the most significant update to AWS Cloudfront in the last decade. By enabling
 customers to run code directly in Cloudfront's Point-Of-Presences (POPs), AWS was at the forefront of
 [edge computing](https://en.wikipedia.org/wiki/Edge_computing), leveraging
 [countless](https://aws.amazon.com/blogs/networking-and-content-delivery/category/networking-content-delivery/lambdaedge/)
 use-cases, from simple header manipulation, to custom authentication workflows. 
 
 Lambda@Edge relies on a [simple execution model](https://docs.aws.amazon.com/lambda/latest/dg/lambda-edge.html) that
-defines four different places to manipulate CloudFront request or response objects:
+defines four different types of lambda functions that can manipulate CloudFront request or response objects:
 
 ![Lambda@Edge execution model](/assets/lambda-edge-simple.png)
 
@@ -27,10 +27,10 @@ The four different lambda types are:
 | viewer-response | Before cache | Every request    | Response    |
 
 A few immediate observations:
- * Origin-request and origin-response lambdas are not run on cache hits, and therefore do not impact the performance
- of cache-hits.
- * Viewer-request and viewer-response lambdas are run on every request. This can get quite expensive on Cloudfront
- distribution with significant traffic.
+ * Cache hits do not trigger Origin-request and origin-response lambdas. Therefore, those lambdas do not
+   impact the performance of cache-hits.
+* Viewer-request and viewer-response lambdas are triggered on every request. This can get quite expensive
+  on Cloudfront distribution with significant traffic.
 
 ### A two-tiered caching architecture
 
@@ -85,7 +85,7 @@ origin-requests are now executed close to the origin, and potentially quite far 
 
 Because of the limitations of lambda@edge, AWS introduced [Cloudfront functions](https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/).
 Cloudfront functions are *lightweight* lambda@edge functions that are small enough to run in edge caches, allowing
-better latency: they run closer to the user, and have a smaller cold-start time. They however come with [more
+improved latency: they run closer to the user, and have a smaller cold-start time. They however come with [more
 constraining restrictions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-restrictions.html),
 especially a maximum of 1ms of execution time.
 
@@ -99,5 +99,5 @@ This gives us this final execution model, replacing the viewer-request lambda@ed
 ### Closing Thoughts
 
 As Cloudfront evolves from a simple architecture to a two- to three-tiered architecture, the lambda@edge execution
-model remains unchanged and tries to mask this added complexity, at the risk of having users misunderstand where
-their code is actually executed.
+model remains unchanged and tries to mask this added complexity. This might lead users to misunderstand where
+Cloudfront executes lambda@edge code.
