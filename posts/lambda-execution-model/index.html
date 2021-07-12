@@ -22,7 +22,7 @@ an additional caching layer, close to the origin, to help further reduce the num
 to have that file cached in all edge regional caches. With an origin shield, since all regional
 caches would send the request through that shield, only a single request to the origin would be executed.</p><p>Of course this complicates the Lambda execution model.</p><p><img src=/assets/lambda-edge-3-tier-with-lambda.png alt="Cloudfront 3-tier architecture"></p><p>Indeed, origin-requests need to run <em>after the cache</em>. Adding an origin shield to your Cloudfront distribution
 changes where your origin-* lambda are executed: they will now be run at the origin-shield instead of the
-regional cache. Depending on your use-case, this might be appropriate - but it is important to node that
+regional cache. Depending on your use-case, this might be appropriate - but it is important to note that
 origin-requests are now executed close to the origin, and potentially quite far from the user and the edge.</p><h3 id=cloudfront-functions>Cloudfront functions</h3><p>Because of the limitations of lambda@edge, AWS introduced <a href=https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/>Cloudfront functions</a>.
 Cloudfront functions are <em>lightweight</em> lambda@edge functions that are small enough to run in edge caches, allowing
 better latency: they run closer to the user, and have a smaller cold-start time. They however come with <a href=https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-restrictions.html>more
