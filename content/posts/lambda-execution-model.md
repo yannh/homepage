@@ -92,12 +92,18 @@ especially a maximum of 1ms of execution time.
 Cloudfront functions can be used for viewer-request and viewer-response functions, in lieu of lambda@edge viewer-*
 functions, and can be combined with lambda@edge origin-request and origin-response functions.
 
-This gives us this final execution model, replacing the viewer-request lambda@edge function by a Cloudfront function.
+However, because viewer-request Cloudfront functions execute at the edge cache, and lambda@edge in the regional
+edge cache, [it is not possible to combine a viewer-* Cloudfront functions with a viewer-* lambda@edge
+functions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-restrictions.html).
+
+This gives us this final execution model, replacing the viewer-request lambda@edge function by a Cloudfront function:
 
 ![Cloudfront 3-tier architecture with Cloudfront function](/assets/lambda-edge-3-tier-with-function.png)
 
 ### Closing Thoughts
 
 As Cloudfront evolves from a simple architecture to a two- to three-tiered architecture, the lambda@edge execution
-model remains unchanged and tries to mask this added complexity. This might lead users to misunderstand where
-Cloudfront executes lambda@edge code.
+model remains unchanged and hides this increased complexity. In many cases this abstraction makes it easier
+to reason about Cloudfront, although in some cases it might also lead users to build code on incorrect assumptions.
+
+Hopefully this article helps clarify the situation!
