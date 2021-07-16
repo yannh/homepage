@@ -96,7 +96,7 @@ However, because viewer-request Cloudfront functions execute at the edge cache, 
 edge cache, [it is not possible to combine a viewer-* Cloudfront functions with a viewer-* lambda@edge
 functions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-restrictions.html).
 
-This gives us this final execution model, replacing the viewer-request lambda@edge function by a Cloudfront function:
+This gives us this final execution model, replacing the viewer-* lambda@edge functions by Cloudfront functions:
 
 ![Cloudfront 3-tier architecture with Cloudfront function](/assets/lambda-edge-3-tier-with-function.png)
 
