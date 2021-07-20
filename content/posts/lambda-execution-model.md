@@ -7,7 +7,7 @@ tags: ["Cloudfront", "Lambda@edge"]
 
 The [introduction of Lambda@Edge](https://aws.amazon.com/about-aws/whats-new/2016/12/introducing-lambda-at-edge-in-preview-run-lambda-function-at-aws-edge-locations-closest-to-your-users/)
 in 2016/2017 was probably the most significant update to AWS Cloudfront in the last decade. By enabling
-customers to run code directly in Cloudfront's Point-Of-Presences (POPs), AWS was at the forefront of
+customers to run code directly in Cloudfront's Points-Of-Presence (POPs), AWS was at the forefront of
 [edge computing](https://en.wikipedia.org/wiki/Edge_computing), leveraging
 [countless](https://aws.amazon.com/blogs/networking-and-content-delivery/category/networking-content-delivery/lambdaedge/)
 use-cases, from simple header manipulation, to custom authentication workflows. 
