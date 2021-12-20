@@ -14,7 +14,8 @@
             },
             created: async function() {
                 for (let projectName of ["yannh/kubeconform", "yannh/redis-dump-go", "yannh/terraform-provider-statuspage",
-                    "contentful-labs/coredns-nodecache", "contentful-labs/kube-secret-syncer", "contentful-labs/terraform-diff"]) {
+                    "contentful-labs/coredns-nodecache", "contentful-labs/kube-secret-syncer", "contentful-labs/terraform-diff",
+		    "yannh/openbsd_immutable_router", "yannh/fastly-inspect", "yannh/kubernetes-json-schema"]) {
                     getRepo(projectName).then(repo => {
                         app.repos.push({
                             title: repo.name,
