@@ -1,7 +1,7 @@
 ---
 title: "The curious case of the CDN Cache-HISS"
 date: 2023-08-06T00:00:00Z
-draft: false
+draft: true
 tags: ["Fastly", "CDN"]
 ---
 
