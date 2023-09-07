@@ -1,7 +1,7 @@
 ---
 title: "The curious case of the CDN Cache-HISS"
 date: 2023-08-06T00:00:00Z
-draft: true
+draft: false
 tags: ["Fastly", "CDN"]
 ---
 
@@ -105,4 +105,37 @@ Cache-HISS?
 
 # Stale content (stale-on-5xx)
 
+When a file is cached by a CDN and its TTL expires, or if you purge that file from the CDN, the CDN will often keep the file in cache for a little while and mark it as "stale", instead of directly deleting it. This is because _in some cases_, you might decide that serving content that is slightly out of date is better than the alternative.
 
+The most common case is when the TTL of a cached file in the CDN expires, and the CDN tries to fetch a new version from your backend server. What if there is an error fetching the new version, because your fileserver is currently overloaded or down? Would it be better to serve a 5xx HTTP error - or a slightly outdated file? 
+
+This behavious is known as _stale-on-error_ and is available with [most](https://aws.amazon.com/about-aws/whats-new/2023/05/amazon-cloudfront-stale-while-revalidate-stale-if-error-cache-control-directives/) [CDN](https://developers.cloudflare.com/cache/concepts/cache-control/#revalidation) [providers](https://docs.fastly.com/en/guides/serving-stale-content#serving-stale-content-on-errors). Depending on your business requirements, this might be a good option to turn on.
+
+Let's take the following example:
+ * A user requests a file
+ * The CDN has a cached version of that file, but since the TTL of that cached object expired, it forwards the request to the backend server
+ * The backend server is currently overloaded - the connection times out after several seconds.
+ * The option "stale-on-error" is turned on - therefore the CDN serves the stale object from cache.
+
+What happened?
+ * The file was served from cache - it is a cache HIT
+ * The request went to the origin (or tried to). It was very slow to complete since the CDN waited for a timeout to occur before giving up and serving the stale file.
+
+Cache HISS!
+
+
+
+## Final thoughts
+
+
+The fact that a request is a cache "HIT" tells us very little about what happened. In some cases, the request might hit a caching layer half way around the planet, wait for another request to complete, hit a timeout or an error, or even hit the origin and require computation there. It tells us nothing about the two things that really matter:
+
+ * Was the user experience good - was the file served to the user with low latency?
+ * Did the request put load on the backend server?
+
+By extension: cache HISSes might completely skew what you believe the cache-HIT ratio reported by your CDN is telling you. It does not necessarily correlate with a good user experience, not is it necessarily an indication of how many requests reach your origin. There is also no agreed standard on how to measure the cache-HIT ratio - depending on your provider, it might be unclear how cache HISSes are counted.
+
+So - forget about cache hit ratios! And measure what matters:
+
+ * With what latency was the file served (Time To First Byte, Total)? You might measure this either at the edge of your network, in the CDN - or using instrumentation on the client side.
+ * How many requests, from all requests, reached the origin? Especially if the requests require heavy computation (in the case of a REST or GraphQL API), returning 304s might not save you all this much.
