@@ -18,7 +18,7 @@ A few years ago, I was asked to take a more active role maintaining the CDN conf
 And I soon realised, who would have guessed - things are never that simple. Cache-HITs? Cache-MISSes? Cache-HIT ratios? Things have gotten complicated, and those terms don't make all that much sense anymore..
 
 
-Let me introduce you: the cache HISS. It's the request that is a little bit of a cache-HIT, a little bit of a cache-MISS... and it comes in different flavours!
+Let me introduce you: the cache HISS: a little bit cache-HIT, a little bit cache-MISS... and it comes in different flavours!
 
 
 # Definitions
