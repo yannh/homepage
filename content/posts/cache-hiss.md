@@ -42,7 +42,7 @@ To not overload the origin, modern CDNs supports[ETags](https://en.wikipedia.org
 
 If the CDN receives a request for which the cached file's TTL has expired, and the file was previously returned with an ETag response header, it would add a [if-none-match](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) request  containing the value of that Etag. This is akin to telling the origin "Can you send me file X? I already have this version in cache, so if it has not changed, do not sent me the whole file again". 
 
-If your origin supports ETags, it will compute the ETag of the file requested. If the file has not changed, the computed ETag will match the ETag sent by the CDN in the _if-none-match_ header, and instead of sending the whole file back, your origin will return a HTTP/304 Not Modified response. The CDN would then renew the TTL of the file in cache for another 60 minutes, *and serve the file it has in cache*.
+If your origin supports ETags, it will compute the ETag of the file requested. If the file has not changed, the computed ETag will match the ETag sent by the CDN in the _if-none-match_ header, and instead of sending the whole file back, your origin will return a HTTP/304 Not Modified response. The CDN would then renew the TTL of the file in cache using the information returned by the origin in the _cdn-cache-control_ and _cache-control_ headers, *and serve the file it has in cache*.
 
 What happened?
 
@@ -77,9 +77,9 @@ This is quite impractical - and to reduce the impact on the origin, modern CDNs 
 What happened?
 
  * The first request returned content served by the origin, it was a cache MISS.
- * The other 99 requests served data from the CDN cache, populated by the first requests. They are, technically, cache HITs.
+ * The other 99 requests were not sent to the origin, served data from the CDN cache, populated by the first requests. They are, technically, cache HITs.
 
-Unintuitively enough - while the requests that returned cache HITs did not go to the origin, they were waiting, some for up to 10second, for the first request to complete. 
+Unintuitively enough - while the requests that returned cache HITs did not go to the origin, they were waiting, some for up to 10second, for the first request to complete. According to the RFC 9211, those are even cache MISSes...
 
 Cache HISS?
 
