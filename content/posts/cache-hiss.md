@@ -27,8 +27,7 @@ Before going further, let's define some important terms. Believing there was no 
 
  * A cache *HIT* is a request where the response is served by the cache. The request was not forwarded to the origin.
  * A cache *MISS* is a request that was forwarded to the origin.
-
-We will also be talking about the _origin_: in the following examples, that is the infrastructure the CDN forwards requests to.
+ * The _origin_ is the infrastructure the CDN forwards requests to.
 
 # HTTP 304 - Not Modified
 
