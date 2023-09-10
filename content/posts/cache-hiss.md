@@ -23,10 +23,10 @@ Let me introduce you: the cache HISS: a little bit cache-HIT, a little bit cache
 
 # Definitions
 
-But before going further, let's define some important terms. Believing there was no standard definition, I was going to define these myself, until it was pointed out to me that a [RFC from 2022](https://www.rfc-editor.org/rfc/rfc9211.html#name-the-hit-parameter) did just that. We will therefore use the following definition:
+Before going further, let's define some important terms. Believing there was no standard definition, I was going to define these myself, until it was pointed out to me that a [RFC from 2022](https://www.rfc-editor.org/rfc/rfc9211.html#name-the-hit-parameter) did just that. We will therefore use the following definitions:
 
  * A cache *HIT* is a request where the response is served by the cache. The request was not forwarded to the origin.
- * A cache *MISS* is a request that went forward towards the origin.
+ * A cache *MISS* is a request that was forwarded to the origin.
 
 We will also be talking about the _origin_: in the following examples, that is the infrastructure the CDN forwards requests to.
 
