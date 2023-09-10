@@ -92,7 +92,7 @@ In an earlier blog post about the [execution model of AWS Lambda@edge in Cloudfr
 
 In this example of a three-tier setup with Cloudfront, the "edge location" will be geographically quite close to the user - but the "origin shield" will be geographically much closer to the origin, and potentially quite far from the user. What this architecture implies - is that a request might be a HIT or a MISS in every of the different caching layers.
 
-Let's take the following use-case: your origin is located in Virgina (US-East), and use a CDN using a three-tiered architecture such as the one presented above. A user from India requests a 1KB file. Noone in india requested that file in India before, therefore neither the edge location nor the Regional Edge cache has the file in cache. The request therefore goes all around the globe to US-East to the origin shield cache. Someone in the US requested that file earlier, therefore the file is in cache in the origin shield, and the request is therefore a Cache-HIT in the shield. 
+Let's take the following use-case: your origin is located in Virgina (US-East), and uses a CDN using a three-tiered architecture such as the one presented above. A user from India requests a 1KB file. Noone in India requested that file before, therefore neither the edge location nor the Regional Edge Cache has the file in cache. The request therefore goes all around the globe to the origin shield cache in US-East. Someone in the US requested that file earlier, therefore the file is in cache in the origin shield, and the request is therefore a Cache-HIT in the shield.
 
 What happened?
 
