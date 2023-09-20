@@ -7,7 +7,7 @@ tags: ["Fastly", "CDN"]
 
 A few years ago, I was asked to take a more active role maintaining the CDN configuration of the company I work for. My knowledge of CDNs at the time was _pretty basic_ and could be summarised by the following diagram:
 
-![Cache-Hit or Cache-MISS](/assets/cache-hit-miss.png)
+![Cache Hit or Cache MISS](/assets/cache-hit-miss.png)
 
 "Sure, I got this". And for a short time, things were good. But soon after, I was asked the following question:
 
@@ -15,10 +15,10 @@ A few years ago, I was asked to take a more active role maintaining the CDN conf
   "We are reviewing the performance of a client's requests - several of their requests are quite slow, despite being Cache HITs. What's going on?".
 
 
-And I soon realised, who would have guessed - things are never that simple. Cache-HITs? Cache-MISSes? Cache-HIT ratios? Things have gotten complicated, and those terms don't make all that much sense anymore..
+And I soon realised, who would have guessed - things are never that simple. Cache HITs? Cache MISSes? Cache-HIT ratios? Things have gotten complicated, and those terms don't make all that much sense anymore..
 
 
-Let me introduce you: the cache HISS: a little bit cache-HIT, a little bit cache-MISS... and it comes in different flavours!
+Let me introduce you: the cache HISS: a little bit cache HIT, a little bit cache MISS... and it comes in different flavours!
 
 
 # Definitions
@@ -49,15 +49,15 @@ What happened?
  * However, the request went to the origin, and potentially required some computation there.
 
 
-According to our definition - this is a cache-MISS. Somewhat unintuitively though, the request was actually served  data from the CDN cache. 
+According to our definition - this is a cache MISS. Somewhat unintuitively though, the request was actually served using data from the CDN cache.
 
-Cache-HISS?
-
-
-# Request collapsing
+Is this a Cache-HISS?
 
 
-To improve on the previous architecture, you decide that setting a TTL of 1h on your files is not that great after all. You need to wait up to an hour for the new versions of your files to be served, and the revalidations requests from the CDN are not very efficient - most of your files never change!
+# Request coalescing/collapsing
+
+
+To improve on the previous architecture, you decide that setting a TTL of 1h on your files is not that great after all. You need to wait up to an hour for the new versions of your files to be served, and the revalidation requests from the CDN are not very efficient, since most of your files never change!
 
 You decide that having a much higher TTL (1 year), and purging files from the CDN when they change would mean fewer revalidation requests to your origin, and ensuring the new versions of the files are available much sooner.
 
@@ -67,11 +67,11 @@ Now - some of the files are requested quite a lot. Especially after a file chang
  * You upload a new version of a large file. 
  * You send a purge request for that file to the CDN.
  * You send an email advertising that there is a new version of the file
- * Over the next 10 seconds after you sent the email, 100 different persons start downloading the file.
+ * Over the next 10 seconds after you sent the email, 100 different persons (in the same location, for the sake of the example) start downloading the file.
  * _Assuming it takes 10 seconds for the CDN to retrieve the file from the origin_, for 10 seconds following the first request, the file will not be in the CDN's cache yet.
  * Since the CDN does not have the file in cache when those 100 requests are received, the CDN makes 100 requests to the backend, which serves the same large file 100 times.
 
-This is quite impractical - and to reduce the impact on the origin, modern CDNs will use [request collapsing](https://developer.fastly.com/learning/concepts/edge-state/cache/request-collapsing/). Request collapsing is an optimisation where the CDN will realise, upon receiving one of these 100 requests, that it already is retrieving that file from the backend for an earlier request. It will therefore "park" the request, waiting for the earlier request to complete. Once the earlier request is completed, the file will be served from cache for all "parked" requests. We say that those "parked" requests are "collapsed" into the earlier request.
+This is quite impractical. Therefore, to reduce the impact on the origin, modern CDNs will use [request collapsing](https://developer.fastly.com/learning/concepts/edge-state/cache/request-collapsing/)(or: Coalescing). Request collapsing is an optimisation where the CDN will realise, upon receiving one of these 100 requests, that it already is retrieving that file from the backend for an earlier request. It will therefore "park" the request, waiting for the earlier request to complete. Once the earlier request is completed, the file will be served from cache for all "parked" requests. We say that those "parked" requests are "collapsed" into the earlier request.
 
 What happened?
 
@@ -80,7 +80,7 @@ What happened?
 
 Unintuitively enough - while the requests that returned cache HITs did not go to the origin, they were waiting, some for up to 10 seconds, for the first request to complete. According to the RFC 9211, those are even cache MISSes...
 
-Cache HISS?
+Another case of cache-HISS?
 
 
 # Multi-Tiered architectures
@@ -92,15 +92,15 @@ In an earlier blog post about the [execution model of AWS Lambda@edge in Cloudfr
 
 In this example of a three-tier setup with Cloudfront, the "edge location" will be geographically quite close to the user - but the "origin shield" will be geographically much closer to the origin, and potentially quite far from the user. What this architecture implies - is that a request might be a HIT or a MISS in every of the different caching layers.
 
-Let's take the following use-case: your origin is located in Virginia (US-East), and uses a CDN using a three-tiered architecture such as the one presented above. A user from India requests a 1KB file. Noone in India requested that file before, therefore neither the edge location nor the Regional Edge Cache has the file in cache. The request therefore goes all around the globe to the origin shield cache in US-East. Someone in the US requested that file earlier, therefore the file is in cache in the origin shield, and the request is therefore a Cache-HIT in the shield.
+Let's take the following use-case: your origin is located in Virginia (US-East), and uses a CDN using a three-tiered architecture such as the one presented above. A user from India requests a 1KB file. Noone in India requested that file before, therefore neither the edge location nor the Regional Edge Cache has the file in cache. The request therefore goes all around the globe to the origin shield cache in US-East. Someone in the US requested that file earlier, therefore the file is in cache in the origin shield, and the request is therefore a cache HIT in the shield.
 
 What happened?
 
- * The request returned never reached the origin. It is a cache HIT.
+ * The request never reached the origin. It is a cache HIT.
  * However, the request had to go all around the planet to reach the origin shield, and was barely faster than a non-cached request.
 
 
-Cache-HISS?
+Also a cache-HISS?
 
 
 # Serving stale content
@@ -121,14 +121,14 @@ What happened?
  * The file was served from cache - it is a cache HIT
  * The request went to the origin (or tried to). It was very slow to complete since the CDN waited for a timeout to occur before giving up and serving the stale file.
 
-Cache HISS!
+Cache-HISS!
 
 
 ## Final thoughts
 
 Looking at a single qualifier for a request, "HIT" or "MISS", tells us very little about what really happened. In some cases, the request might hit a caching layer half way around the planet, wait for another request to complete, hit a timeout or an error, or even hit the origin and require computation there. By extension, a cache-hit ratio will fail to convey any information about user experience, or how many requests reached the origin.
 
-The Cache-Status HTTP response header introduced by the [RFC 9211](https://www.rfc-editor.org/rfc/rfc9211.html) is a really interesting attempt at improving the situation and providing a standard way of exposing and tracking CDNs' caching behaviour. It recognises that to get meaningful information about a request, it is important to take into account the cache behaviour at each caching layer. It also provides a clear definition of what Cache HITs and a Cache MISSes are.
+The Cache-Status HTTP response header introduced by the [RFC 9211](https://www.rfc-editor.org/rfc/rfc9211.html) is a really interesting attempt at improving the situation and providing a standard way of exposing and tracking CDNs' caching behaviour. It recognises that to get meaningful information about a request, it is important to take into account the cache behaviour at each caching layer. It also provides a clear definition of what cache HITs and a cache MISSes are.
 
 It is however pretty recent and implementation of that RFC is sparse. Most CDNs providers present some aggregated cache-hit ratio. Forget about it, and measure what matters:
 
