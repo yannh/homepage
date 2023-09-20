@@ -5,7 +5,7 @@ draft: false
 tags: ["Fastly", "CDN"]
 ---
 
-A few years ago, I was asked to take a more active role maintaining the CDN configuration of the company I work for. My knowledge of CDNs at the time was _pretty basic_ and could be summarised by the following diagramm:
+A few years ago, I was asked to take a more active role maintaining the CDN configuration of the company I work for. My knowledge of CDNs at the time was _pretty basic_ and could be summarised by the following diagram:
 
 ![Cache-Hit or Cache-MISS](/assets/cache-hit-miss.png)
 
@@ -78,7 +78,7 @@ What happened?
  * The first request returned content served by the origin, it was a cache MISS.
  * The other 99 requests were not sent to the origin, served data from the CDN cache, populated by the first requests. They are, technically, cache HITs.
 
-Unintuitively enough - while the requests that returned cache HITs did not go to the origin, they were waiting, some for up to 10second, for the first request to complete. According to the RFC 9211, those are even cache MISSes...
+Unintuitively enough - while the requests that returned cache HITs did not go to the origin, they were waiting, some for up to 10 seconds, for the first request to complete. According to the RFC 9211, those are even cache MISSes...
 
 Cache HISS?
 
@@ -92,7 +92,7 @@ In an earlier blog post about the [execution model of AWS Lambda@edge in Cloudfr
 
 In this example of a three-tier setup with Cloudfront, the "edge location" will be geographically quite close to the user - but the "origin shield" will be geographically much closer to the origin, and potentially quite far from the user. What this architecture implies - is that a request might be a HIT or a MISS in every of the different caching layers.
 
-Let's take the following use-case: your origin is located in Virgina (US-East), and uses a CDN using a three-tiered architecture such as the one presented above. A user from India requests a 1KB file. Noone in India requested that file before, therefore neither the edge location nor the Regional Edge Cache has the file in cache. The request therefore goes all around the globe to the origin shield cache in US-East. Someone in the US requested that file earlier, therefore the file is in cache in the origin shield, and the request is therefore a Cache-HIT in the shield.
+Let's take the following use-case: your origin is located in Virginia (US-East), and uses a CDN using a three-tiered architecture such as the one presented above. A user from India requests a 1KB file. Noone in India requested that file before, therefore neither the edge location nor the Regional Edge Cache has the file in cache. The request therefore goes all around the globe to the origin shield cache in US-East. Someone in the US requested that file earlier, therefore the file is in cache in the origin shield, and the request is therefore a Cache-HIT in the shield.
 
 What happened?
 
@@ -109,7 +109,7 @@ When a file is cached by a CDN and its TTL expires, or if you purge that file fr
 
 The most common case is when the TTL of a cached file in the CDN expires, and the CDN tries to fetch a new version from your backend server. What if there is an error fetching the new version, because your fileserver is currently overloaded or down? Would it be better to serve a 5xx HTTP error - or a slightly outdated file? 
 
-This behavious is known as _stale-on-error_ and is available with [most](https://aws.amazon.com/about-aws/whats-new/2023/05/amazon-cloudfront-stale-while-revalidate-stale-if-error-cache-control-directives/) [CDN](https://developers.cloudflare.com/cache/concepts/cache-control/#revalidation) [providers](https://docs.fastly.com/en/guides/serving-stale-content#serving-stale-content-on-errors). Depending on your business requirements, this might be a good option to turn on.
+This behaviour is known as _stale-on-error_ and is available with [most](https://aws.amazon.com/about-aws/whats-new/2023/05/amazon-cloudfront-stale-while-revalidate-stale-if-error-cache-control-directives/) [CDN](https://developers.cloudflare.com/cache/concepts/cache-control/#revalidation) [providers](https://docs.fastly.com/en/guides/serving-stale-content#serving-stale-content-on-errors). Depending on your business requirements, this might be a good option to turn on.
 
 Let's take the following example:
  * A user requests a file
