@@ -79,10 +79,19 @@ to initiate a full new TCP handshake.
 
 ![POP-to-origin latency distribution for BOG (night, ms)](/assets/pop-to-origin-latency-distribution-night.png "POP-to-origin latency distribution for the POP BOG (night, ms)")
 
-So, for the same POP but during a different timeframe, we see fewer requests
-and more requests needing to perform a full TCP handshake. On average, this
-results in slower requests.
+In our example, for the same POP and the same amount of time but during the
+night, we see fewer requests overall, but more requests needing to perform a
+full TCP handshake. This results in slower requests, on average.
 
+## What did we learn?
+
+CDN Performance has a lot of variables. The quality of connection pooling of
+your CDN can play a significant role in the performance of your website, and
+the amount of traffic to your website is often a factor in how well connection
+pooling performs.
+
+At time of low traffic, it is possible that you you will observe a degradation
+of performance.
 
 ## Your mileage may vary
 
