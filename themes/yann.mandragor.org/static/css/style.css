@@ -184,6 +184,13 @@ hr {
     max-width: 100%;
 }
 
+#post figcaption {
+    text-align: center;
+    margin-top: -1.5rem;
+    font-size: smaller;
+    font-style: italic
+}
+
 #post table {
     border-spacing: 0;
     border-collapse: collapse;
