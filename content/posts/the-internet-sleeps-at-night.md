@@ -85,13 +85,13 @@ full TCP handshake. This results in slower requests, on average.
 
 ## What did we learn?
 
-CDN Performance has a lot of variables. The quality of connection pooling of
-your CDN can play a significant role in the performance of your website, and
-the amount of traffic to your website is often a factor in how well connection
-pooling performs.
+CDN performance depends on many factors, including the quality of connection
+pooling between your CDN and your origin. This can significantly impact your
+website's performance, and the amount of traffic to your website often
+influences how well connection pooling performs.
 
-At time of low traffic, it is possible that you you will observe a degradation
-of performance.
+During periods of low traffic, you may observe a noticable degradation
+in performance.
 
 ## Your mileage may vary
 
