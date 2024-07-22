@@ -1,6 +1,6 @@
 ---
 title: "😴 The Internet sleeps at night 🌙"
-date: 2024-06-21T00:00:00Z
+date: 2024-07-21T00:00:00Z
 draft: false
 tags: ["Fastly", "CDN", "internet"]
 ---
