@@ -95,7 +95,7 @@ full TCP handshake. This results in slower requests, on average.
 ## CDN performance
 
 CDN performance depends on many factors. The distance between a user and the
-closest Point Of Presence and the ability of the CDN to cache as many files
+closest Point-of-Presence and the ability of the CDN to cache as many files
 as possible are the most well-known.
 
 The quality of connection pooling between your CDN and your origin can also
