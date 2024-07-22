@@ -55,7 +55,7 @@ with a smaller number of requests between 240-300ms, roughly three times as
 much.
 
 ![Number of connections, by PoP-to-origin latency for BOG (day, ms)](/assets/pop-to-origin-latency-distribution.png "Number of connections, by PoP-to-origin latency for BOG (during the day, ms)")
-![PoP-to-origin latency distribution for BOG (night, ms)](/assets/pop-to-origin-latency-distribution-night.png "PoP-to-origin latency distribution for BOG (during the night, ms)")
+![Number of connections, by PoP-to-origin latency for BOG (night, ms)](/assets/pop-to-origin-latency-distribution-night.png "Number of connections, by PoP-to-origin latency for BOG (during the night, ms)")
 
 Why are some requests significantly slower? This is due to the CDN performing an
 optimisation by keeping the TCP connections open to the origin (TCP Keep-Alive).
