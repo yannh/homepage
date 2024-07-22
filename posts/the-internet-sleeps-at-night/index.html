@@ -1,14 +1,15 @@
 <!doctype html><html><head><meta charset=utf-8><meta name=author content="Yann Hamon"><link rel=stylesheet type=text/css href=/css/style.css><title>Yann Hamon | 😴 The Internet sleeps at night 🌙</title></head><body><div id=main-container><div id=post><a href=/ id=back>← Back</a><h1>😴 The Internet sleeps at night 🌙<div class=date>June 21, 2024</div></h1><p>Does it ever feel like the internet is slower at night?</p><p>Did you, like me, assume that the time of day should have nothing to do
-with internet speed?</p><p>Today, I would like to explain the following graph, which shows the average
-and median latency for a large website as experienced by users in South
-America. By understanding Content Delivery Networks (CDNs), TCP, and stateful
-HTTP connections better, we will demonstrate why a large portion of websites
-is indeed slightly slower at night.</p><p><figure><img src=/assets/latency_south_america_light.png alt="POP to origin latency, South America"><figcaption>Average and Median Latency from South America (ms)</figcaption></figure></p><h2 id=pop-to-origin-latency>POP-to-origin latency</h2><p>We will base our discussion on a large website hosted in AWS us-east-1 (in North
-Virginia, US) that uses a CDN, in this case <a href=https://www.fastly.com>Fastly</a>.
-This behavior has only been observed using Fastly but is likely present with
-other CDNs as well.</p><p>The metric shown in this graph is what I call &ldquo;pop-to-origin latency&rdquo;, which is the
-duration of the request as measured by the CDN POP, minus the duration as measured by
-the load balancer at the origin that received the request.</p><p><figure><img src=/assets/pop-to-origin-latency.png alt="POP to origin latency"><figcaption>Pop to origin latency</figcaption></figure></p><p>Fastly operates multiple POPs in South America, and we would expect different
+with internet speed?</p><p>Today, we will look into the following graph, showing increased average
+and median latency during night-time for a large website as experienced by
+users in South America. By understanding Content Delivery Networks (CDNs),
+TCP, and stateful HTTP connections better, we will demonstrate why a large
+portion of websites is indeed slightly slower at night.</p><p><figure><img src=/assets/latency_south_america_light.png alt="POP to origin latency, South America"><figcaption>Average and Median Latency from South America (ms)</figcaption></figure></p><h2 id=pop-to-origin-latency>POP-to-origin latency</h2><p>The website in question is hosted in AWS us-east-1 (in North
+Virginia, US) and uses a CDN, in this case <a href=https://www.fastly.com>Fastly</a>.
+The behavior has only been observed using Fastly, but is likely present with
+other CDNs as well.</p><p>The metric shown in this graph is what I call &ldquo;pop-to-origin latency&rdquo;, which is
+the duration of the request as measured by the CDN Point-of-Presence (PoP),
+minus the duration as measured by the load balancer at the origin that received
+the request.</p><p><figure><img src=/assets/pop-to-origin-latency.png alt="POP to origin latency"><figcaption>Pop to origin latency</figcaption></figure></p><p>Fastly operates multiple POPs in South America, and we would expect different
 POP-to-origin latencies for each of them, in function of their relative distance
 to AWS us-east-1.</p><p><figure><img src=/assets/pop-to-origin-latency-by-pop.png alt="Average POP-to-origin latency by POP"><figcaption>Average POP-to-origin latency by POP in South America (ms)</figcaption></figure></p><p>The POP referred to as BOG is Bogota (Colombia), and usually experiences highest latency
 around 9-11AM on this graph, where time is in CET (Berlin time): that would
