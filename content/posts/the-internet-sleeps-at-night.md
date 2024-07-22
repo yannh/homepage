@@ -57,21 +57,30 @@ number of requests between 240-300ms, roughly three times as much.
 ![POP-to-origin latency distribution for BOG (day, ms)](/assets/pop-to-origin-latency-distribution.png "POP-to-origin latency distribution for the POP BOG (day, ms)")
 
 Why are some requests significantly slower? This is due to the CDN performing an
-optimisation by keeping the TCP connection open to the origin (TCP Keep-Alive).
+optimisation by keeping the TCP connections open to the origin (TCP Keep-Alive).
+
+When the CDN performs a requests to a website, it has to open a TCP connection
+to it, and perform what is called a TCP "handshake". This is somewhat time
+intensive, and therefore once a TCP connection is open, the CDN provider will keep
+it open for a little while, building a pool of open connections to the website.
 
 ![TCP connection (Wikipedia, CC-BY-SA-3.0-migrated)](/assets/tcp-handshake.png "TCP connection (Wikipedia, CC-BY-SA-3.0-migrated)")
 
-Requests that require the CDN to run a full TCP connection to the origin will be
-impacted by the latency of the full TCP handshake, while requests that benefit
-from an already established connection will avoid this delay. The graph showing
-the pop-to-origin latency distribution illustrates the quality of the connection
-pooling from the CDN.
+The already-opened connections in that pool can be reused later by requests
+going to the same origin. Requests that benefit from an already established
+connection will avoid the delay incurred by initializing the TCP connection,
+resulting in faster response times.
+
+The graph showing the pop-to-origin latency distribution therefore also
+illustrates the quality of the connection pooling provided by the CDN and
+indicates how many requests were able to reuse an already-opened connection.
+
 
 ## The internet does sleep at night
 
 Now, what happens during the night? Keeping connections open has a cost for the
 CDN provider. There is a finite number of open connections per POP that it can
-maintain, and this is shared across all its customers.
+maintain, and this is resource shared across all its customers.
 
 During the night, your website is likely to receive fewer requests, resulting
 in fewer opportunities to keep those valuable connections open. As a result,
@@ -84,15 +93,19 @@ In our example, for the same POP and the same amount of time but during the
 night, we see fewer requests overall, but more requests needing to perform a
 full TCP handshake. This results in slower requests, on average.
 
-## What did we learn?
+## CDN performance
 
-CDN performance depends on many factors, including the quality of connection
-pooling between your CDN and your origin. This can significantly impact your
-website's performance, and the amount of traffic to your website often
-influences how well connection pooling performs.
+CDN performance depends on many factors. The distance between a user and the
+closest Point Of Presence and the ability of the CDN to cache as many files
+as possible are the most well-known.
 
-During periods of low traffic, you may observe a noticable degradation
-in performance.
+The quality of connection pooling between your CDN and your origin can also
+significantly impact your website's performance. As we have seen, the amount
+of traffic to your website can influence how well that connection pooling
+performs.
+
+During periods of low traffic, you may observe a noticeable increase in
+connection latency.
 
 ## Your mileage may vary
 
