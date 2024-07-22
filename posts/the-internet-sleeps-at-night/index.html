@@ -3,35 +3,35 @@ with internet speed?</p><p>Today, we will look into the following graph, showing
 and median latency during night-time for a large website as experienced by
 users in South America. By understanding Content Delivery Networks (CDNs),
 TCP, and stateful HTTP connections better, we will demonstrate why a large
-portion of websites is indeed slightly slower at night.</p><p><figure><img src=/assets/latency_south_america_light.png alt="POP to origin latency, South America"><figcaption>Average and Median Latency from South America (ms)</figcaption></figure></p><h2 id=pop-to-origin-latency>POP-to-origin latency</h2><p>The website in question is hosted in AWS us-east-1 (in North
+portion of websites is indeed slightly slower at night.</p><p><figure><img src=/assets/latency_south_america_light.png alt="PoP to origin latency, South America"><figcaption>Average and Median Latency from South America (ms)</figcaption></figure></p><h2 id=pop-to-origin-latency>PoP-to-origin latency</h2><p>The website in question is hosted in AWS us-east-1 (in North
 Virginia, US) and uses a CDN, in this case <a href=https://www.fastly.com>Fastly</a>.
 The behavior has only been observed using Fastly, but is likely present with
-other CDNs as well.</p><p>The metric shown in this graph is what I call &ldquo;pop-to-origin latency&rdquo;, which is
+other CDNs as well.</p><p>The metric shown in this graph is what I call &ldquo;PoP-to-origin latency&rdquo;, which is
 the duration of the request as measured by the CDN Point-of-Presence (PoP),
 minus the duration as measured by the load balancer at the origin that received
-the request.</p><p><figure><img src=/assets/pop-to-origin-latency.png alt="POP to origin latency"><figcaption>Pop to origin latency</figcaption></figure></p><p>Fastly operates multiple POPs in South America, and we would expect different
-POP-to-origin latencies for each of them, in function of their relative distance
-to AWS us-east-1.</p><p><figure><img src=/assets/pop-to-origin-latency-by-pop.png alt="Average POP-to-origin latency by POP"><figcaption>Average POP-to-origin latency by POP in South America (ms)</figcaption></figure></p><p>The POP referred to as BOG is Bogota (Colombia), and usually experiences highest latency
+the request.</p><p><figure><img src=/assets/pop-to-origin-latency.png alt="PoP to origin latency"><figcaption>PoP to origin latency</figcaption></figure></p><p>Fastly operates multiple PoP in South America, and we would expect different
+PoP-to-origin latencies for each of them, in function of their relative distance
+to AWS us-east-1.</p><p><figure><img src=/assets/pop-to-origin-latency-by-pop.png alt="Average PoP-to-origin latency by PoP"><figcaption>Average PoP-to-origin latency by PoP in South America (ms)</figcaption></figure></p><p>The PoP referred to as BOG is Bogota (Colombia), and usually experiences highest latency
 around 9-11AM on this graph, where time is in CET (Berlin time): that would
-actually be 2-4AM in Bogota, in the middle of the night.</p><p>So - in every single PoP in South America, we see pop-to-origin latency degrade
+actually be 2-4AM in Bogota, in the middle of the night.</p><p>So - in every single PoP in South America, we see PoP-to-origin latency degrade
 significantly as people go to sleep, and then get better as they wake up. Not
-something I expected!</p><h2 id=latency-distribution>Latency distribution</h2><p>It becomes clearer when we look at the distribution of pop-to-origin latency during
+something I expected!</p><h2 id=latency-distribution>Latency distribution</h2><p>It becomes clearer when we look at the distribution of PoP-to-origin latency during
 the day in South America. Most requests have a latency between 80-120ms, with a smaller
-number of requests between 240-300ms, roughly three times as much.</p><p><figure><img src=/assets/pop-to-origin-latency-distribution.png alt="POP-to-origin latency distribution for BOG (day, ms)"><figcaption>POP-to-origin latency distribution for the POP BOG (day, ms)</figcaption></figure></p><p>Why are some requests significantly slower? This is due to the CDN performing an
+number of requests between 240-300ms, roughly three times as much.</p><p><figure><img src=/assets/pop-to-origin-latency-distribution.png alt="PoP-to-origin latency distribution for BOG (day, ms)"><figcaption>PoP-to-origin latency distribution for the PoP BOG (day, ms)</figcaption></figure></p><p>Why are some requests significantly slower? This is due to the CDN performing an
 optimisation by keeping the TCP connections open to the origin (TCP Keep-Alive).</p><p>When the CDN performs a requests to a website, it has to open a TCP connection
 to it, and perform what is called a TCP &ldquo;handshake&rdquo;. This is somewhat time
 intensive, and therefore once a TCP connection is open, the CDN provider will keep
 it open for a little while, building a pool of open connections to the website.</p><p><figure><img src=/assets/tcp-handshake.png alt="TCP connection (Wikipedia, CC-BY-SA-3.0-migrated)"><figcaption>TCP connection (Wikipedia, CC-BY-SA-3.0-migrated)</figcaption></figure></p><p>The already-opened connections in that pool can be reused later by requests
 going to the same origin. Requests that benefit from an already established
 connection will avoid the delay incurred by initializing the TCP connection,
-resulting in faster response times.</p><p>The graph showing the pop-to-origin latency distribution therefore also
+resulting in faster response times.</p><p>The graph showing the PoP-to-origin latency distribution therefore also
 illustrates the quality of the connection pooling provided by the CDN and
 indicates how many requests were able to reuse an already-opened connection.</p><h2 id=the-internet-does-sleep-at-night>The internet does sleep at night</h2><p>Now, what happens during the night? Keeping connections open has a cost for the
-CDN provider. There is a finite number of open connections per POP that it can
+CDN provider. There is a finite number of open connections per PoP that it can
 maintain, and this is resource shared across all its customers.</p><p>During the night, your website is likely to receive fewer requests, resulting
 in fewer opportunities to keep those valuable connections open. As a result,
 opened connections are more likely to time out, and more connections will have
-to initiate a full new TCP handshake.</p><p><figure><img src=/assets/pop-to-origin-latency-distribution-night.png alt="POP-to-origin latency distribution for BOG (night, ms)"><figcaption>POP-to-origin latency distribution for the POP BOG (night, ms)</figcaption></figure></p><p>In our example, for the same POP and the same amount of time but during the
+to initiate a full new TCP handshake.</p><p><figure><img src=/assets/pop-to-origin-latency-distribution-night.png alt="PoP-to-origin latency distribution for BOG (night, ms)"><figcaption>PoP-to-origin latency distribution for the PoP BOG (night, ms)</figcaption></figure></p><p>In our example, for the same PoP and the same amount of time but during the
 night, we see fewer requests overall, but more requests needing to perform a
 full TCP handshake. This results in slower requests, on average.</p><h2 id=cdn-performance>CDN performance</h2><p>CDN performance depends on many factors. The distance between a user and the
 closest Point Of Presence and the ability of the CDN to cache as many files
