@@ -17,7 +17,7 @@ actually be 2-4AM in Bogota, in the middle of the night.</p><p>So - in every sin
 significantly as people go to sleep, and then get better as they wake up. Not
 something I expected!</p><h2 id=latency-distribution>Latency distribution</h2><p>It becomes clearer when we look at the distribution of PoP-to-origin latency during
 the day in South America. Most requests have a latency between 80-120ms, with a smaller
-number of requests between 240-300ms, roughly three times as much.</p><p><figure><img src=/assets/pop-to-origin-latency-distribution.png alt="PoP-to-origin latency distribution for BOG (day, ms)"><figcaption>PoP-to-origin latency distribution for the PoP BOG (day, ms)</figcaption></figure></p><p>Why are some requests significantly slower? This is due to the CDN performing an
+number of requests between 240-300ms, roughly three times as much.</p><p><figure><img src=/assets/pop-to-origin-latency-distribution.png alt="Number of connections, by PoP-to-origin latency for BOG (day, ms)"><figcaption>Number of connections, by PoP-to-origin latency for PoP BOG (day, ms)</figcaption></figure><figure><img src=/assets/pop-to-origin-latency-distribution-night.png alt="PoP-to-origin latency distribution for BOG (night, ms)"><figcaption>PoP-to-origin latency distribution for the PoP BOG (night, ms)</figcaption></figure></p><p>Why are some requests significantly slower? This is due to the CDN performing an
 optimisation by keeping the TCP connections open to the origin (TCP Keep-Alive).</p><p>When the CDN performs a requests to a website, it has to open a TCP connection
 to it, and perform what is called a TCP &ldquo;handshake&rdquo;. This is somewhat time
 intensive, and therefore once a TCP connection is open, the CDN provider will keep
@@ -31,7 +31,7 @@ CDN provider. There is a finite number of open connections per PoP that it can
 maintain, and this is resource shared across all its customers.</p><p>During the night, your website is likely to receive fewer requests, resulting
 in fewer opportunities to keep those valuable connections open. As a result,
 opened connections are more likely to time out, and more connections will have
-to initiate a full new TCP handshake.</p><p><figure><img src=/assets/pop-to-origin-latency-distribution-night.png alt="PoP-to-origin latency distribution for BOG (night, ms)"><figcaption>PoP-to-origin latency distribution for the PoP BOG (night, ms)</figcaption></figure></p><p>In our example, for the same PoP and the same amount of time but during the
+to initiate a full new TCP handshake.</p><p>In our example, for the same PoP and the same amount of time but during the
 night, we see fewer requests overall, but more requests needing to perform a
 full TCP handshake. This results in slower requests, on average.</p><h2 id=cdn-performance>CDN performance</h2><p>CDN performance depends on many factors. The distance between a user and the
 closest Point Of Presence and the ability of the CDN to cache as many files
