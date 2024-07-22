@@ -39,9 +39,9 @@ to AWS us-east-1.
 ![Average PoP-to-origin latency by PoP](/assets/pop-to-origin-latency-by-pop.png "Average PoP-to-origin latency by PoP in South America (ms)")
 
 
-The PoP referred to as BOG is Bogota (Colombia), and usually experiences highest latency
-around 9-11AM on this graph, where time is in CET (Berlin time): that would
- actually be 2-4AM in Bogota, in the middle of the night.
+The PoP referred to as BOG is Bogota (Colombia), and usually experiences
+highest latency around 9-11AM on this graph, where time is in CET (Berlin
+time): that would actually be 2-4AM in Bogota, in the middle of the night.
 
 So - in every single PoP in South America, we see PoP-to-origin latency degrade
 significantly as people go to sleep, and then get better as they wake up. Not
@@ -49,12 +49,13 @@ something I expected!
 
 ## Latency distribution
 
-It becomes clearer when we look at the distribution of PoP-to-origin latency during
-the day in South America. Most requests have a latency between 80-120ms, with a smaller
-number of requests between 240-300ms, roughly three times as much.
+It becomes clearer when we look at the distribution of PoP-to-origin latency
+for a single PoP (here: BOG). Most requests have a latency between 80-120ms,
+with a smaller number of requests between 240-300ms, roughly three times as
+much.
 
-![Number of connections, by PoP-to-origin latency for BOG (day, ms)](/assets/pop-to-origin-latency-distribution.png "Number of connections, by PoP-to-origin latency for PoP BOG (day, ms)")
-![PoP-to-origin latency distribution for BOG (night, ms)](/assets/pop-to-origin-latency-distribution-night.png "PoP-to-origin latency distribution for the PoP BOG (night, ms)")
+![Number of connections, by PoP-to-origin latency for BOG (day, ms)](/assets/pop-to-origin-latency-distribution.png "Number of connections, by PoP-to-origin latency for BOG (during the day, ms)")
+![PoP-to-origin latency distribution for BOG (night, ms)](/assets/pop-to-origin-latency-distribution-night.png "PoP-to-origin latency distribution for BOG (during the night, ms)")
 
 Why are some requests significantly slower? This is due to the CDN performing an
 optimisation by keeping the TCP connections open to the origin (TCP Keep-Alive).
@@ -71,9 +72,9 @@ going to the same origin. Requests that benefit from an already established
 connection will avoid the delay incurred by initializing the TCP connection,
 resulting in faster response times.
 
-The graph showing the PoP-to-origin latency distribution therefore also
-illustrates the quality of the connection pooling provided by the CDN and
-indicates how many requests were able to reuse an already-opened connection.
+The graphs showing the PoP-to-origin latency distribution therefore also
+illustrate the quality of the connection pooling provided by the CDN and
+indicate how many requests were able to reuse an already-opened connection.
 
 
 ## The internet does sleep at night
@@ -85,8 +86,7 @@ maintain, and this is resource shared across all its customers.
 During the night, your website is likely to receive fewer requests, resulting
 in fewer opportunities to keep those valuable connections open. As a result,
 opened connections are more likely to time out, and more connections will have
-to initiate a full new TCP handshake.
-
+to initiate a full TCP handshake.
 
 In our example, for the same PoP and the same amount of time but during the
 night, we see fewer requests overall, but more requests needing to perform a
