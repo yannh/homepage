@@ -47,14 +47,14 @@ So - in every single PoP in South America, we see PoP-to-origin latency degrade
 significantly as people go to sleep, and then get better as they wake up. Not
 something I expected!
 
-
 ## Latency distribution
 
 It becomes clearer when we look at the distribution of PoP-to-origin latency during
 the day in South America. Most requests have a latency between 80-120ms, with a smaller
 number of requests between 240-300ms, roughly three times as much.
 
-![PoP-to-origin latency distribution for BOG (day, ms)](/assets/pop-to-origin-latency-distribution.png "PoP-to-origin latency distribution for the PoP BOG (day, ms)")
+![Number of connections, by PoP-to-origin latency for BOG (day, ms)](/assets/pop-to-origin-latency-distribution.png "Number of connections, by PoP-to-origin latency for PoP BOG (day, ms)")
+![PoP-to-origin latency distribution for BOG (night, ms)](/assets/pop-to-origin-latency-distribution-night.png "PoP-to-origin latency distribution for the PoP BOG (night, ms)")
 
 Why are some requests significantly slower? This is due to the CDN performing an
 optimisation by keeping the TCP connections open to the origin (TCP Keep-Alive).
@@ -87,7 +87,6 @@ in fewer opportunities to keep those valuable connections open. As a result,
 opened connections are more likely to time out, and more connections will have
 to initiate a full new TCP handshake.
 
-![PoP-to-origin latency distribution for BOG (night, ms)](/assets/pop-to-origin-latency-distribution-night.png "PoP-to-origin latency distribution for the PoP BOG (night, ms)")
 
 In our example, for the same PoP and the same amount of time but during the
 night, we see fewer requests overall, but more requests needing to perform a
