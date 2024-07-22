@@ -9,25 +9,26 @@ Does it ever feel like the internet is slower at night?
 Did you, like me, assume that the time of day should have nothing to do
 with internet speed?
 
-Today, I would like to explain the following graph, which shows the average
-and median latency for a large website as experienced by users in South
-America. By understanding Content Delivery Networks (CDNs), TCP, and stateful
-HTTP connections better, we will demonstrate why a large portion of websites
-is indeed slightly slower at night.
+Today, we will look into the following graph, showing increased average
+and median latency during night-time for a large website as experienced by
+users in South America. By understanding Content Delivery Networks (CDNs),
+TCP, and stateful HTTP connections better, we will demonstrate why a large
+portion of websites is indeed slightly slower at night.
 
 ![POP to origin latency, South America](/assets/latency_south_america_light.png "Average and Median Latency from South America (ms)")
 
 
 ## POP-to-origin latency
 
-We will base our discussion on a large website hosted in AWS us-east-1 (in North
-Virginia, US) that uses a CDN, in this case [Fastly](https://www.fastly.com).
-This behavior has only been observed using Fastly but is likely present with
+The website in question is hosted in AWS us-east-1 (in North
+Virginia, US) and uses a CDN, in this case [Fastly](https://www.fastly.com).
+The behavior has only been observed using Fastly, but is likely present with
 other CDNs as well.
 
-The metric shown in this graph is what I call "pop-to-origin latency", which is the
-duration of the request as measured by the CDN POP, minus the duration as measured by
-the load balancer at the origin that received the request.
+The metric shown in this graph is what I call "pop-to-origin latency", which is
+the duration of the request as measured by the CDN Point-of-Presence (PoP),
+minus the duration as measured by the load balancer at the origin that received
+the request.
 
 ![POP to origin latency](/assets/pop-to-origin-latency.png "Pop to origin latency")
 
