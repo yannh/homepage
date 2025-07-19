@@ -486,24 +486,112 @@ h2 a:hover svg { fill: var(--accent); }
 
 /* Responsive */
 @media (max-width: 768px) {
-    #main-container { padding: 1rem; }
+    body {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.25rem; }
+    
+    #main-container { 
+        padding: 1rem;
+        max-width: 100%;
+    }
     
     #title {
         padding: 1rem 0;
         margin-bottom: 2rem;
     }
     
-    #title h1 { font-size: 2.5rem; }
+    #title h1 { 
+        font-size: clamp(2rem, 10vw, 3rem);
+        line-height: 1.1;
+    }
     
+    #title h2 {
+        font-size: 1.125rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* Better mobile section headers */
+    #main-container > h2 {
+        font-size: 1.5rem;
+        margin: 3rem 0 1.5rem;
+    }
+    
+    /* Social icons - smaller and more mobile-friendly */
+    #icons {
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    #icons a {
+        width: 3rem;
+        height: 3rem;
+        border-width: 1px;
+    }
+    
+    #icons svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+    
+    /* Repository grid */
     #app {
         grid-template-columns: 1fr;
         gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    #app a.repo {
+        padding: 1.25rem;
+    }
+    
+    #app a.repo h3 {
+        font-size: 1.125rem;
+    }
+    
+    /* Better mobile blog layout */
+    #blog {
+        margin: 1.5rem 0;
     }
     
     #blog li {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
+        gap: 0.25rem;
+        padding: 0.75rem 0;
+    }
+    
+    #blog a {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    #blog .date {
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+    
+    /* External publications */
+    #external {
+        margin: 1.5rem 0;
+    }
+    
+    #external > a { 
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    #external h3 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+    
+    #external h4 {
+        font-size: 0.9rem;
     }
     
     #external img {
@@ -511,27 +599,136 @@ h2 a:hover svg { fill: var(--accent); }
         display: block;
         margin: 0 auto 1rem;
         width: 100%;
-        max-width: 300px;
+        max-width: 280px;
     }
     
-    #external > a { padding: 1.5rem; }
+    #external p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* Contact section */
+    #contact {
+        padding: 3rem 0 2rem;
+        margin-top: 3rem;
+    }
+    
+    #contact h2 {
+        font-size: 1.5rem;
+    }
+    
+    #contact a {
+        padding: 0.875rem 1.75rem;
+        font-size: 0.95rem;
+        /* Better touch target */
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Post styles */
+    #post h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        padding-left: 1rem;
+        border-left-width: 3px;
+    }
+    
+    #post #back {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        /* Better touch target */
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    #post ul {
+        padding-left: 1.5rem;
+    }
+    
+    #post table {
+        font-size: 0.9rem;
+        margin: 1.5rem -1rem; /* Allow table to use full width */
+        width: calc(100% + 2rem);
+        border-radius: 0;
+    }
+    
+    #post table th,
+    #post table td {
+        padding: 0.5rem 0.75rem;
+    }
     
     #post #prev,
     #post #next {
         float: none;
         max-width: 100%;
         margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
     }
     
+    /* Code blocks */
+    pre {
+        margin: 1.5rem -1rem; /* Full width on mobile */
+        border-radius: 0;
+        padding: 1rem;
+        font-size: 0.85rem;
+        overflow-x: auto;
+    }
+    
+    code {
+        font-size: 0.85rem;
+    }
+    
+    /* Theme switcher */
     .theme-switcher {
         top: 1rem;
         right: 1rem;
-        width: 2.2rem;
-        height: 2.2rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        /* Better touch target */
+        min-width: 44px;
+        min-height: 44px;
     }
     
     .theme-switcher svg {
-        width: 1rem;
-        height: 1rem;
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+    
+    /* Reduce margins/padding for mobile */
+    hr {
+        margin: 2rem 0;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    body {
+        font-size: 0.95rem;
+    }
+    
+    #title h1 {
+        font-size: clamp(1.75rem, 12vw, 2.5rem);
+    }
+    
+    #title h2 {
+        font-size: 1rem;
+    }
+    
+    #main-container > h2 {
+        font-size: 1.375rem;
+    }
+    
+    #app a.repo,
+    #external > a {
+        padding: 1rem;
+    }
+    
+    pre {
+        padding: 0.75rem;
+        font-size: 0.8rem;
     }
 }
