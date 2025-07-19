@@ -2,11 +2,45 @@
 <html>
     {{- partial "head.html" . -}}
     <body>
+        <button class="theme-switcher" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="m12 2 0 2"/>
+                <path d="m12 20 0 2"/>
+                <path d="m4.93 4.93 1.41 1.41"/>
+                <path d="m17.66 17.66 1.41 1.41"/>
+                <path d="m2 12 2 0"/>
+                <path d="m20 12 2 0"/>
+                <path d="m6.34 17.66-1.41 1.41"/>
+                <path d="m19.07 4.93-1.41 1.41"/>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
         <div id="main-container">
             {{- partial "header.html" . -}}
             {{- block "main" . }}{{- end }}
             {{- partial "footer.html" . -}}
         </div>
+        <script>
+            function toggleTheme() {
+                const html = document.documentElement;
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            }
+            
+            // Initialize theme on page load
+            (function() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            })();
+        </script>
         {{ if in .Params.requires "fiddle" }}<script defer src="https://fiddle.fastlydemo.net/embed.js"></script>{{ end }}
         {{- if in .Params.requires "prism" }}<script defer src="/js/prism.js"></script>{{ end -}}
     </body>

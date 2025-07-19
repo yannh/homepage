@@ -4,3 +4,12 @@ title = "Yann Hamon"
 theme = "yann.mandragor.org"
 contentDir = "content"
 staticDir = ["static"]
+
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderHooks]
+      [markup.goldmark.renderHooks.image]
+        enableDefault = true
+
+
